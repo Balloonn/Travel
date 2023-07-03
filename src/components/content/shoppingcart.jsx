@@ -22,16 +22,18 @@ class shoppingcart extends Component{
                     },
             ],
             allchecked: false,
-            totalamount:''
+            totalamount:'0'
         }   
     }
     
     //第三种计算总价的方法
     totalPrice(){
-        const totalPrice = this.state.orders.reduce((preValue,item)=>{
-            return item.amount*item.order_amount + preValue
-            },0)
-        return totalPrice
+        const neworders = [...this.state.orders]
+        let total=0
+        neworders.forEach(item => {
+            total +=item.ischecked ? item.order_amount*item.amount:0
+        })
+        this.setState({totalamount: total})
     }
 
     //增加商品数量
@@ -43,18 +45,21 @@ class shoppingcart extends Component{
         neworders[index].amount +=1
         //修改orders的引用
         this.setState({ orders:neworders })
+        this.totalPrice()        
     }
     //减少商品数量
     deincrease(index){
         const neworders = [...this.state.orders]
         neworders[index].amount +=-1
         this.setState({ orders:neworders })
+        this.totalPrice()
     }
     //删除商品
     removeItem(index){
         const neworders = [...this.state.orders]
         neworders.splice(index,1)
         this.setState({orders:neworders})
+        this.totalPrice()
     }
     checked(id){
         const neworders = [...this.state.orders]
@@ -66,14 +71,22 @@ class shoppingcart extends Component{
         // 当单个按钮全部选中 全选按钮也要更新
         if(sum===this.state.orders.length){
             this.setState({allchecked:true})
-            console.log(this.allchecked)
         }else{
             this.setState({allchecked:false})
         }
         this.setState({neworders})
         this.totalPrice()
     }
-
+    checkedall(){
+        const neworders = [...this.state.orders]
+        neworders.forEach(item =>{
+            item.ischecked = !this.state.allchecked
+        })
+        this.setState({neworders})
+        console.log(neworders)
+        this.setState({allchecked:!this.state.allchecked})
+        this.totalPrice()
+    }
     //当有商品时显示商品
     renderordersList(){
         const {orders} = this.state
@@ -111,8 +124,10 @@ class shoppingcart extends Component{
                             )
                         })}
                         <tr>
-                            {/* <input type="checkbox" checked={this.state.allchecked} onChange={()=>this.checked(index)}/> */}
-                            <td>总价格：￥{this.totalPrice()}</td>  
+                            <td>
+                            <input type="checkbox" checked={this.state.allchecked} onChange={()=>this.checkedall()}/>
+                            </td> 
+                            <td>总价格：￥{this.state.totalamount}</td>  
                         </tr>    
                     </tbody>    
                 </table>    

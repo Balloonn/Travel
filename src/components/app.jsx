@@ -2,6 +2,7 @@ import React, { Children, Component } from 'react';
 import Navbar from './navBar';
 import {Routes, Route, Navigate} from 'react-router-dom';
 import Home from './content/home';
+import Item from './content/item';
 import Login from './content/login';
 import Register from './content/register';
 import NotFound from './content/notFound';
@@ -15,7 +16,7 @@ class App extends Component {
         is_login: true,
         // is_login: false,
         is_administrator: true,
-        username: 'Luochuyuan',
+        username: '',
     } 
 
     componentDidMount() {
@@ -45,6 +46,7 @@ class App extends Component {
                 <div className='container'>
                     <Routes>
                         <Route path='/home' element={<Home/>}/>
+                        <Route path='/home/content' element={<Item/>}/>
                         <Route path='/orderlist' element={this.state.is_login ? <Orderlist/> : <Navigate replace to="/login"/>}/>           
                         <Route path='/shoppingcart' element={this.state.is_login ? <Shoppingcart/> : <Navigate replace to="/login"/>}/>  
                         <Route path='/userslist' element={this.state.is_administrator ? <Userslist/> : <Navigate replace to="/login"/>}/>
