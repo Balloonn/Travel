@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Dialog from "./dialog";
 
 class shoppingcart extends Component{
     constructor(){
@@ -11,6 +10,7 @@ class shoppingcart extends Component{
                         order_amount:85.00,
                         amount:1,
                         reserve_date:'2023-7-3',
+                        ischecked: false,
                     },
                     {
 
@@ -18,8 +18,11 @@ class shoppingcart extends Component{
                         order_amount:100.00,
                         amount:1,
                         reserve_date:'2023-7-5',
+                        ischecked: false,
                     },
-            ]
+            ],
+            allchecked: false,
+            totalamount:''
         }   
     }
     
@@ -53,6 +56,24 @@ class shoppingcart extends Component{
         neworders.splice(index,1)
         this.setState({orders:neworders})
     }
+    checked(id){
+        const neworders = [...this.state.orders]
+        let sum =0
+        neworders[id].ischecked = !neworders[id].ischecked
+        neworders.forEach(item =>{
+            sum+=item.ischecked?1:0
+        })
+        // 当单个按钮全部选中 全选按钮也要更新
+        if(sum===this.state.orders.length){
+            this.setState({allchecked:true})
+            console.log(this.allchecked)
+        }else{
+            this.setState({allchecked:false})
+        }
+        this.setState({neworders})
+        this.totalPrice()
+    }
+
     //当有商品时显示商品
     renderordersList(){
         const {orders} = this.state
@@ -70,7 +91,10 @@ class shoppingcart extends Component{
                     <tbody align="center">
                         {orders.map((item,index)=>{
                             return (
-                                <tr key={index}>
+                                <tr key={index}>                
+                                    <td>
+                                        <input type="checkbox" checked={this.state.orders.ischecked} onChange={()=>this.checked(index)}/>
+                                    </td>
                                     <td>{index+1}</td>
                                     <td>{item.scenicid}</td>
                                     <td>{"￥" + item.order_amount}</td>
@@ -87,12 +111,13 @@ class shoppingcart extends Component{
                             )
                         })}
                         <tr>
+                            {/* <input type="checkbox" checked={this.state.allchecked} onChange={()=>this.checked(index)}/> */}
                             <td>总价格：￥{this.totalPrice()}</td>  
                         </tr>    
                     </tbody>    
                 </table>    
                 <button onClick={this.buy} style={{width: "100%"}} type="submit" className="btn btn-primary">结算</button>
-                <button onClick={() => {this.setState(this.state.show == !this.state.show)}} style={{width: "100%"}} type="submit" className="btn btn-primary">结算</button>
+            {/* <button onClick={() => {this.setState(this.state.show == !this.state.show)}} style={{width: "100%"}} type="submit" className="btn btn-primary">结算</button>~ */}
             </div>
     }
     //当没有商品时显示购物车为空

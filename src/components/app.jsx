@@ -14,7 +14,7 @@ class App extends Component {
     state = { 
         is_login: true,
         // is_login: false,
-        is_administrator: false,
+        is_administrator: true,
         username: 'Luochuyuan',
     } 
 
