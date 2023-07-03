@@ -4,6 +4,7 @@ import $ from 'jquery'
 
 class Orderlist extends Component{
 
+
     constructor(){
         super()
         this.state = {
@@ -45,8 +46,26 @@ class Orderlist extends Component{
                 },
             ]
         }   
+        this.init()
     }
 
+    init () {
+        $.ajax({
+            url: 'https://app5636.acapp.acwing.com.cn/orderlist/',
+            type: 'post',
+            data: {
+            },
+            dataType: 'json',
+            success: resp => {
+                if(resp.result === 'successed'){
+                    console.log(resp.orderlist)
+                    this.setState({ orders:resp.orderlist })
+                } else {
+                    console.log('a')
+                }
+            }
+        })
+    }
 
     searchorder = e => {
         e.preventDefault();

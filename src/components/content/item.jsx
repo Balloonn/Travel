@@ -7,6 +7,7 @@ class Item extends Component{
         searchParams: this.props.params[0],
         setSearchParams: this.props.params[1],
         date:'',
+        idnumber: '',
     }
 
     buy = e => {
@@ -38,8 +39,12 @@ class Item extends Component{
                 <h1>{this.state.searchParams.get('id')}</h1>
                 <div>
                     <input type="date"  onChange={e => {this.setState({date: e.target.value})}} name="mouth"/>
+                    <div className="mb-3">
+                        <label htmlFor="idnumber" className="form-label">身份证号</label>
+                        <input onChange={e => {this.setState({idnumber: e.target.value})}} type="text" className="form-control" id="idnumber" />
+                    </div>
                     <br />
-                    <button onClick={this.buy} style={{width: "50%", marginTop: '10px',}} type="submit" className="btn btn-primary" >加入购物车</button>
+                    <button onClick={this.buy} style={{width: "50%", }} type="submit" className="btn btn-primary" >加入购物车</button>
                 </div>
                 <hr />
                 <Link to='/home'>返回</Link>

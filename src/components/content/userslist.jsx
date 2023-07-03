@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery'
 
 class Userslist extends Component{
     constructor(){
@@ -31,20 +32,25 @@ class Userslist extends Component{
                     },
             ]
         }   
+        this.init()
     }
 
-
-    //减少商品数量
-    bandusers(index){
-        const newusers = [...this.state.users]
-        newusers[index].userstate = 'band'
-        this.setState({ users:newusers })
-    }
-    //删除商品
-    freeusers(index){
-        const newusers = [...this.state.users]
-        newusers[index].userstate = 'normal' 
-        this.setState({users:newusers})
+    init () {
+        $.ajax({
+            url: 'https://app5636.acapp.acwing.com.cn/userslist/',
+            type: 'post',
+            data: {
+            },
+            dataType: 'json',
+            success: resp => {
+                if(resp.result === 'successed'){
+                    console.log(resp.users)
+                    this.setState({ orders:resp.users })
+                } else {
+                    console.log('a')
+                }
+            }
+        })
     }
 
     //当有商品时显示商品

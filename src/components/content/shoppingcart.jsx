@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery'
 
 class shoppingcart extends Component{
     constructor(){
@@ -24,6 +25,25 @@ class shoppingcart extends Component{
             allchecked: false,
             totalamount:'0'
         }   
+        this.init()
+    }
+
+    init () {
+        $.ajax({
+            url: 'https://app5636.acapp.acwing.com.cn/shoppingcart/',
+            type: 'post',
+            data: {
+            },
+            dataType: 'json',
+            success: resp => {
+                if(resp.result === 'successed'){
+                    console.log(resp.orderlist)
+                    this.setState({ orders:resp.orderlist })
+                } else {
+                    console.log('a')
+                }
+            }
+        })
     }
     
     //第三种计算总价的方法
@@ -83,7 +103,6 @@ class shoppingcart extends Component{
             item.ischecked = !this.state.allchecked
         })
         this.setState({neworders})
-        console.log(neworders)
         this.setState({allchecked:!this.state.allchecked})
         this.totalPrice()
     }
