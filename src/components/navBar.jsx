@@ -42,7 +42,7 @@ class Navbar extends Component {
     }
 
     render_userlist = () => {
-        if(this.props.is_administrator) {
+        if(this.props.is_login) {
             return (
                 <li className="nav-item">
                     <Link className="nav-link" to="/userslist">用户列表</Link>

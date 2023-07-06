@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery'
+import item from './item';
 
 class shoppingcart extends Component{
     constructor(){
@@ -106,6 +107,16 @@ class shoppingcart extends Component{
         this.setState({allchecked:!this.state.allchecked})
         this.totalPrice()
     }
+    buy(){
+        console.log('a')
+        var final = []
+        this.state.orders.forEach(item=>{
+            if(!item.ischecked)
+                final.push(item)
+        })
+        this.setState({orders:final})
+        this.totalPrice()
+    }
     //当有商品时显示商品
     renderordersList(){
         const {orders} = this.state
@@ -150,8 +161,7 @@ class shoppingcart extends Component{
                         </tr>    
                     </tbody>    
                 </table>    
-                <button onClick={this.buy} style={{width: "100%"}} type="submit" className="btn btn-primary">结算</button>
-            {/* <button onClick={() => {this.setState(this.state.show == !this.state.show)}} style={{width: "100%"}} type="submit" className="btn btn-primary">结算</button>~ */}
+                <button onClick={()=>this.buy()} style={{width: "100%"}} type="submit" className="btn btn-primary">结算</button>
             </div>
     }
     //当没有商品时显示购物车为空

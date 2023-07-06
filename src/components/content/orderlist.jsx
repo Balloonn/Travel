@@ -44,7 +44,9 @@ class Orderlist extends Component{
                     order_amount:110.00,
                     reserve_date:'2023-7-3',
                 },
-            ]
+            ],
+            operation : '',
+            username: '',
         }   
         this.init()
     }
@@ -54,6 +56,8 @@ class Orderlist extends Component{
             url: 'https://app5636.acapp.acwing.com.cn/orderlist/',
             type: 'post',
             data: {
+                operation: 'init',
+                username: 'xhx',
             },
             dataType: 'json',
             success: resp => {
@@ -75,7 +79,9 @@ class Orderlist extends Component{
             url: 'https://app5636.acapp.acwing.com.cn/orderlist/',
             type: 'post',
             data: {
+                operation: 'search',
                 search: this.state.search,
+                username: 'xhx',
             },
             dataType: 'json',
             success: resp => {
@@ -83,7 +89,7 @@ class Orderlist extends Component{
                     console.log(resp.orderlist)
                     this.setState({ orders:resp.orderlist })
                 } else {
-                    console.log('a')
+                    alert('不存在当前订单号')
                 }
             }
         })

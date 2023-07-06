@@ -40,6 +40,7 @@ class Login extends Component {
     }
 
     render() { 
+        console.log(this.props.is_login)
         return (
             <Base>
                 <div className="container">

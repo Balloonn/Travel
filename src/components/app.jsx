@@ -15,7 +15,7 @@ class App extends Component {
     state = { 
         is_login: true,
         // is_login: false,
-        is_administrator: true,
+        // is_administrator: true,
         username: '',
     } 
 
@@ -43,13 +43,14 @@ class App extends Component {
         return (
             <React.Fragment>
                 <Navbar is_login={this.state.is_login} username={this.state.username} is_administrator = {this.state.is_administrator}/>
+                {/* <Login is_login={this.state.is_login}/> */}
                 <div className='container'>
                     <Routes>
                         <Route path='/home' element={<Home/>}/>
                         <Route path='/home/content' element={<Item/>}/>
                         <Route path='/orderlist' element={this.state.is_login ? <Orderlist/> : <Navigate replace to="/login"/>}/>           
                         <Route path='/shoppingcart' element={this.state.is_login ? <Shoppingcart/> : <Navigate replace to="/login"/>}/>  
-                        <Route path='/userslist' element={this.state.is_administrator ? <Userslist/> : <Navigate replace to="/login"/>}/>
+                        <Route path='/userslist' element={this.state.is_login ? <Userslist/> : <Navigate replace to="/login"/>}/>
                         <Route path='/login' element={this.state.is_login ? <Navigate replace to="/home"/> : <Login/>}/>
                         <Route path='/register' element={this.state.is_login ? <Navigate replace to="/home"/> : <Register/>}/>
                         <Route path='/404' element={<NotFound/>}/>

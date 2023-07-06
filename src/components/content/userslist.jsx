@@ -7,7 +7,7 @@ class Userslist extends Component{
         this.state = {
             users:[
                     {
-                        userid:1,
+                        userid:'1',
                         password:1,
                         number:1,
                         usertpye:'用户',
@@ -15,7 +15,7 @@ class Userslist extends Component{
                         userstate:'normal',
                     },
                     {
-                        userid:2,
+                        userid:'2',
                         password:2,
                         number:2,
                         usertpye:'商家',
@@ -23,14 +23,15 @@ class Userslist extends Component{
                         userstate:'band',
                     },
                     {
-                        userid:3,
+                        userid:'3',
                         password:3,
                         number:3,
                         usertpye:'管理员',
                         idcard:3,
                         userstate:'normal',
                     },
-            ]
+            ],
+            operation: 'getusersinfo',
         }   
         this.init()
     }
@@ -40,17 +41,61 @@ class Userslist extends Component{
             url: 'https://app5636.acapp.acwing.com.cn/userslist/',
             type: 'post',
             data: {
+                operation:'getusersinfo'
             },
             dataType: 'json',
             success: resp => {
                 if(resp.result === 'successed'){
                     console.log(resp.users)
-                    this.setState({ orders:resp.users })
+                    this.setState({ users:resp.users })
                 } else {
                     console.log('a')
                 }
             }
         })
+    }
+
+    //封禁
+    bandusers(index){
+        const newusers = [...this.state.users]
+        newusers[index].userstate = 'band'
+        this.setState({ users:newusers })
+        // $.ajax({
+        //     url: 'https://app5636.acapp.acwing.com.cn/userslist/',
+        //     type: 'post',
+        //     data: {
+        //         users: this.state.users
+        //     },
+        //     dataType: 'json',
+        //     success: resp => {
+        //         if(resp.result === 'successed'){
+        //             console.log('封禁')
+        //         } else {
+        //             console.log('a')
+        //         }
+        //     }
+        // })
+    }
+    //解封
+    freeusers(index){
+        const newusers = [...this.state.users]
+        newusers[index].userstate = 'normal' 
+        this.setState({users:newusers})
+        // $.ajax({
+        //     url: 'https://app5636.acapp.acwing.com.cn/userslist/',
+        //     type: 'post',
+        //     data: {
+        //         users: this.state.users
+        //     },
+        //     dataType: 'json',
+        //     success: resp => {
+        //         if(resp.result === 'successed'){
+        //             console.log('解封')
+        //         } else {
+        //             console.log('a')
+        //         }
+        //     }
+        // })
     }
 
     //当有商品时显示商品

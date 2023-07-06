@@ -48,31 +48,31 @@ class Register extends Component {
         }
     }
 
-    code = e =>{
-        e.preventDefault();
-        if(this.state.phonenumber === ''){
-            this.setState({erro_message: '手机号不能为空'},);
-        }else if(this.state.phonenumber.length !== 11){
-            this.setState({erro_message: '手机号有误'},);
-        } else {
-            $.ajax({
-                url: 'https://app5636.acapp.acwing.com.cn/register/',
-                type: 'post',
-                data: {
-                    phonenumber: this.state.phonenumber,
-                },
-                dataType: 'json',
-                success: resp => {
-                    if(resp.result === 'successed'){
-                        this.setState({right_code: resp.code})
-                        console.log(this.state.right_code)
-                    } else {
-                        this.setState({error_message: '请稍后再试'});
-                    }
-                }
-            })
-        }
-    }
+    // code = e =>{
+    //     e.preventDefault();
+    //     if(this.state.phonenumber === ''){
+    //         this.setState({erro_message: '手机号不能为空'},);
+    //     }else if(this.state.phonenumber.length !== 11){
+    //         this.setState({erro_message: '手机号有误'},);
+    //     } else {
+    //         $.ajax({
+    //             url: 'https://app5636.acapp.acwing.com.cn/register/',
+    //             type: 'post',
+    //             data: {
+    //                 phonenumber: this.state.phonenumber,
+    //             },
+    //             dataType: 'json',
+    //             success: resp => {
+    //                 if(resp.result === 'successed'){
+    //                     this.setState({right_code: resp.code})
+    //                     console.log(this.state.right_code)
+    //                 } else {
+    //                     this.setState({error_message: '请稍后再试'});
+    //                 }
+    //             }
+    //         })
+    //     }
+    // }
 
     render() { 
         return (
@@ -92,7 +92,7 @@ class Register extends Component {
                                     <label htmlFor="password_confirm" className="form-label">确认密码</label>
                                     <input onChange={e => {this.setState({password_confirm: e.target.value})}} type="password" className="form-control" id="password_confirm" />
                                 </div>
-                                <div className="mb-3">
+                                {/* <div className="mb-3">
                                     <label htmlFor="phonenumber" className="form-label">手机号</label>
                                     <input onChange={e => {this.setState({phonenumber: e.target.value})}} type="text" className="form-control" id="phonenumber" />
                                 </div>
@@ -100,7 +100,7 @@ class Register extends Component {
                                 <div className="mb-3">
                                     <label htmlFor="code" className="form-label">验证码</label>
                                     <input onChange={e => {this.setState({code: e.target.value})}} type="text" className="form-control" id="code" />
-                                </div>
+                                </div> */}
                                 <div style = {{height: "2rem", color: "red"}}>
                                     {this.state.erro_message}
                                 </div>
