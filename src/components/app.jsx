@@ -1,8 +1,11 @@
 import React, { Children, Component } from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom';
-import Navbar from './content/navBar.jsx'
+import Navbar from './navBar.jsx'
 import Login from './content/login.jsx';
 import Home from './content/Home.jsx';
+import Register from './content/register.jsx';
+import NotFound from './content/NotFound.jsx';
+import Item from './content/Item.jsx';
 import $ from 'jquery';
 
 class App extends Component {
@@ -36,7 +39,11 @@ class App extends Component {
                     <Routes>
                         <Route path='/' element={<Home/>}/>
                         <Route path='/home' element={<Home/>}/>
+                        <Route path='/home/item' element={<Item is_login={this.state.is_login} username={this.state.username}/>}/>
                         <Route path='/home/login' element={this.state.is_login ? <Navigate replace to="/home"/> : <Login/>}/>
+                        <Route path='/home/register' element={this.state.is_login ? <Navigate replace to="/home"/> : <Register/>}/>
+                        <Route path='/404' element={<NotFound/>}/>
+                        <Route path='*' element={<Navigate replace to="/404"/>}/>
                     </Routes>
                 </div>
 
