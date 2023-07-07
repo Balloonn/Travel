@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
+import $ from 'jquery';
 
 class Home extends Component {
     state = { 
@@ -10,7 +11,31 @@ class Home extends Component {
             {id:4, title:"天安门广场"},
             {id:5, title:"故宫"},
         ]
-     } 
+    } 
+
+    constructor() {
+        super()
+        this.init()
+    }
+
+    init () {
+        $.ajax({
+            url: 'https://app5636.acapp.acwing.com.cn/home/',
+            type: 'post',
+            data: {
+                operation: 'init',
+            },
+            dataType: 'json',
+            success: resp => {
+                if(resp.result === 'successed'){
+                    this.setState({items:resp.items})
+                } else {
+                    alert(resp.result)
+                }
+            }
+        })
+    }
+
     render() { 
         return (
             <React.Fragment>

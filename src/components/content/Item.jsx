@@ -16,24 +16,24 @@ class Item extends Component{
             window.location.href = '/home/login';
         }
         else{
-            // $.ajax({
-            //     url: 'https://app5636.acapp.acwing.com.cn/home/content?item='+ this.state.searchParams.get('item') + '&id=' + this.state.searchParams.get('id'),
-            //     type: 'post',
-            //     data: {
-            //         username: this.props.username,
-            //         reserve_date: this.state.reserve_date,
-            //         scenicid: this.state.searchParams.get('id'),
-            //         idnumber: this.state.idnumber,
-            //     },
-            //     dataType: 'json',
-            //     success: resp => {
-            //         if(resp.result === 'successed'){
-            //             window.location.href = '/home';
-            //         } else {
-            //             alert(resp.result)
-            //         }
-            //     }
-            // })
+            $.ajax({
+                url: 'https://app5636.acapp.acwing.com.cn/home/item?title='+ this.state.searchParams.get('title') + '&id=' + this.state.searchParams.get('id') + '/',
+                type: 'post',
+                data: {
+                    username: this.props.username,
+                    reserve_date: this.state.reserve_date,
+                    scenicid: this.state.searchParams.get('id'),
+                    idnumber: this.state.idnumber,
+                },
+                dataType: 'json',
+                success: resp => {
+                    if(resp.result === 'successed'){
+                        window.location.href = '/home';
+                    } else {
+                        alert(resp.result)
+                    }
+                }
+            })
         }
         
     }

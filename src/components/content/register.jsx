@@ -8,20 +8,14 @@ class Register extends Component {
         username: '',
         password: '',
         password_confirm: '',
-        usertype: '',
+        usertype: '1',
         phonenumber: '',
-        // code: '',
+        // code: '',    
         // right_code: '',
     }; 
 
     handleClick = e => {
         e.preventDefault();
-
-        let myselect = document.getElementById("select");
-        let index = myselect.selectedIndex;
-        let val = myselect.options[index].value
-        
-        this.setState({usertype: val})
 
         if(this.state.username === ''){
             this.setState({erro_message: '用户名不能为空'});
@@ -32,26 +26,26 @@ class Register extends Component {
         // } else if(this.state.code !== this.state.right_code){
         //     this.setState({erro_message: '验证码有误'},);
         }else {
-            // $.ajax({
-            //     url: 'https://app5636.acapp.acwing.com.cn/home/register/',
-            //     type: 'post',
-            //     data: {
-            //         username: this.state.username,
-            //         password: this.state.password,
-            //         usertype: this.state.usertype,
-            //         phonenumber: this.state.phonenumber,
-            //     },
-            //     dataType: 'json',
-            //     success: resp => {
-            //         if(resp.result === 'successed'){
-            //             window.location.href = '/home';
-            //             console.log('success')
-            //         } else {
-            //             this.setState({error_message: '用户名已经注册'});
-            //         }
-            //     }
-            // })
-            window.location.href = '/home';
+            $.ajax({
+                url: 'https://app5636.acapp.acwing.com.cn/home/register/',
+                type: 'post',
+                data: {
+                    username: this.state.username,
+                    password: this.state.password,
+                    usertype: this.state.usertype,
+                    phonenumber: this.state.phonenumber,
+                },
+                dataType: 'json',
+                success: resp => {
+                    if(resp.result === 'successed'){
+                        window.location.href = '/home';
+                        console.log('success')
+                    } else {
+                        this.setState({error_message: '用户名已经注册'});
+                    }
+                }
+            })
+            // window.location.href = '/home';
         }
     }
 
@@ -98,7 +92,7 @@ class Register extends Component {
                                 <label htmlFor="password_confirm" className="form-label">确认密码</label>
                                 <input onChange={e => {this.setState({password_confirm: e.target.value})}} type="password" className="form-control" id="password_confirm" />
                             </div>
-                            <select id="select" className="form-select" aria-label="Default select example" defaultValue={"1"}>
+                            <select id="select" className="form-select" aria-label="Default select example" defaultValue={"1"} onChange={e => {this.setState({usertype: e.target.value})}}>
                                 <option value="1">我是游客</option>
                                 <option value="2">我是商家</option>
                             </select>

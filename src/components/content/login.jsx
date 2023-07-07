@@ -16,24 +16,24 @@ class Login extends Component {
         } else if(this.state.password === ''){
             this.setState({erro_message: '密码不能为空'},);
         } else {
-            // $.ajax({
-            //     url: 'https://app5636.acapp.acwing.com.cn/home/login/',
-            //     type: 'post',
-            //     data: {
-            //         username: this.state.username,
-            //         usertype: this.state.usertype,
-            //         password: this.state.password,
-            //     },
-            //     dataType: 'json',
-            //     success: resp => {
-            //         if(resp.result === 'successed'){
-            //             window.location.href = '/home?username=' + this.state.username + '&is_login=1';
-            //         } else {
-            //             this.setState({error_message: resp.result});
-            //         }
-            //     }
-            // })
-            window.location.href = '/home?username=' + this.state.username + '&is_login=1';
+            $.ajax({
+                url: 'https://app5636.acapp.acwing.com.cn/home/login/',
+                type: 'post',
+                data: {
+                    username: this.state.username,
+                    usertype: this.state.usertype,
+                    password: this.state.password,
+                },
+                dataType: 'json',
+                success: resp => {
+                    if(resp.result === 'successed'){
+                        window.location.href = '/home?username=' + this.state.username + '&is_login=1';
+                    } else {
+                        this.setState({error_message: resp.result});
+                    }
+                }
+            })
+            // window.location.href = '/home?username=' + this.state.username + '&is_login=1';
         }
     }
 
