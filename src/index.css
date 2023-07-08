@@ -2,6 +2,10 @@ body {
   margin: 0;
 }
 
+#userlist {
+  text-align: center;
+}
+
 *{
   box-sizing: border-box;
 }

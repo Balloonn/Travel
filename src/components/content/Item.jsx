@@ -17,7 +17,7 @@ class Item extends Component{
         }
         else{
             $.ajax({
-                url: 'https://app5636.acapp.acwing.com.cn/home/item?title='+ this.state.searchParams.get('title') + '&id=' + this.state.searchParams.get('id') + '/',
+                url: 'https://app5636.acapp.acwing.com.cn/home/item/',
                 type: 'post',
                 data: {
                     username: this.props.username,
