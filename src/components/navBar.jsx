@@ -14,7 +14,7 @@ class Navbar extends Component {
         if(this.props.is_login) {
             return (
                 <li className="nav-item">
-                    <Link className="nav-link" to="/home/orderlist">历史订单</Link>
+                    <Link className="nav-link" to={"/home/orderlist?username=" + this.props.username}>历史订单</Link>
                 </li>
             );
         } else{
@@ -72,6 +72,18 @@ class Navbar extends Component {
         }
     }
 
+    render_additem = () => {
+        if(this.props.is_login) {
+            return (
+                <li className="nav-item">
+                    <Link className="nav-link" to="/home/addgoods">添加商品</Link>
+                </li>
+            );
+        } else{
+            return '';
+        }
+    }
+
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -85,6 +97,7 @@ class Navbar extends Component {
                             {this.render_orderlist()}
                             {this.render_shoppingcart()}
                             {this.render_userlist()}
+                            {this.render_additem()}
                         </ul>
                         {this.render_user()}
                     </div>

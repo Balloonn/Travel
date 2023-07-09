@@ -85,7 +85,7 @@ class Userslist extends Component{
     }
 
     render(){
-        const {users} = this.state
+        const users = this.state.users
         return (
             <table className="table table-striped" id='userlist'>
                 <thead>
