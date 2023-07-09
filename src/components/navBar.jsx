@@ -26,7 +26,7 @@ class Navbar extends Component {
         if(this.props.is_login) {
             return (
                 <li className="nav-item">
-                    <Link className="nav-link" to="/home/shoppingcart">购物车</Link>
+                    <Link className="nav-link" to={"/home/shoppingcart?username=" + this.props.username}>购物车</Link>
                 </li>
             );
         } else{

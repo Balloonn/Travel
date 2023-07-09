@@ -8,6 +8,7 @@ import NotFound from './content/NotFound.jsx';
 import Item from './content/Item.jsx';
 import Orderlist from './content/orderlist.jsx';
 import Userslist from './content/userlist.jsx';
+import Shoppingcart from './content/shoppingcart.jsx';
 import $ from 'jquery';
 
 class App extends Component {
@@ -46,6 +47,7 @@ class App extends Component {
                         <Route path='/home/register' element={this.state.is_login ? <Navigate replace to="/home"/> : <Register/>}/>
                         <Route path='/home/orderlist' element={this.state.is_login ? <Orderlist username={this.state.username}/> : <Navigate replace to="/home/login"/>}/>
                         <Route path='/home/userslist' element={this.state.is_login ? <Userslist/> : <Navigate replace to="/home/login"/>}/>
+                        <Route path='/home/shoppingcart' element={this.state.is_login ? <Shoppingcart/> : <Navigate replace to="/home/login"/>}/>  
                         <Route path='/404' element={<NotFound/>}/>
                         <Route path='*' element={<Navigate replace to="/404"/>}/>
                     </Routes>

@@ -8,7 +8,7 @@ class Orderlist extends Component{
         orderlist:[
             {
                 order_id:'1',
-                username:'1',
+                idnumber:'1',
                 scenicid:'1',
                 scenictitle:'1',
                 order_date:'2023-7-2',
@@ -16,25 +16,25 @@ class Orderlist extends Component{
                 order_price:85.00,
                 comment_content:'',
                 comment_stars:'',
-                comment: true,
+                comment: false,
                 cancel: false,
             },
             {
                 order_id:'2',
-                username:'1',
+                idnumber:'1',
                 scenicid:'2',
                 scenictitle:'2',
                 order_date:'2023-7-4',
-                reserve_date:'2023-7-5',  
+                reserve_date:'2023-7-11',  
                 order_price:100.00,
                 comment_content:'',
                 comment_stars:'',
                 comment: false,
-                cancel: true,
+                cancel: false,
             },
             {
                 order_id:'3',
-                username:'1',
+                idnumber:'1',
                 scenicid:'1',
                 scenictitle:'1',
                 order_date:'2023-7-2',
@@ -42,30 +42,27 @@ class Orderlist extends Component{
                 order_price:110.00,
                 comment_content:'',
                 comment_stars:'',
-                comment: true,
+                comment: false,
                 cancel: false,
             },
             {
                 order_id:'4',
-                username:'1',
+                idnumber:'1',
                 scenicid:'1',
                 scenictitle:'1',
                 order_date:'2023-7-2',
-                reserve_date:'2023-7-9', 
+                reserve_date:'2023-7-30', 
                 order_price:150.00,
                 comment_content:'',
                 comment_stars:'',
                 comment: false,
-                cancel: true,
+                cancel: false,
             },
     ],
     }
 
     constructor(){
         super()
-        this.changeorderindex = ''
-        this.eva_contant = ''
-        this.canceldate = ''
         this.init()
     }
 
@@ -90,57 +87,35 @@ class Orderlist extends Component{
             }
         })
         
-        // let orders = this.state.orderlist
-        // const date = new Date();
-        // const year = date.getFullYear();
-        // const month = date.getMonth() + 1;
-        // const day = date.getDate();
-        // for(let i=0;i<orders.length;i++) {
-        //     const reserve_date = orders[i].reserve_date
-        //     let pos = 0
-        //     let order_year = ''
-        //     let order_month = ''
-        //     let order_day = ''
-        //     while(reserve_date[pos] !== '-'){
-        //         order_year += reserve_date[pos]
-        //         pos++;
-        //     }
-        //     pos ++;
-        //     while(reserve_date[pos] !== '-'){
-        //         order_month += reserve_date[pos]
-        //         pos++;
-        //     }
-        //     pos ++;
-        //     while(pos < reserve_date.length) {
-        //         order_day += reserve_date[pos]
-        //     }
+    }
 
-        //     if(year >= order_year){
-        //         if(month >= order_month){
-        //             if(day >= order_day){
-        //                 orders[i].cancel = false
-        //                 orders[i].comment = true
-        //             }
-        //             else{
-        //                 orders[i].cancel = true
-        //                 orders[i].comment = false
-        //             }
-        //         }
-        //         else{
-        //             orders[i].cancel = true
-        //             orders[i].comment = false
-        //         }
-        //     }
-        //     else {
-        //         orders[i].cancel = true
-        //         orders[i].comment = false
-        //     }
-        // }
-        // this.setState({orderlist:orders})
+    date_compare(index) {
+        let orders = this.state.orderlist
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const reserve_date = orders[index].reserve_date
+        let pos = 0
+        let order_year = ''
+        let order_month = ''
+        let order_day = ''
+        const order_date = reserve_date.split('-')
+        order_year = order_date[0]
+        order_month = order_date[1]
+        order_day = order_date[2]
+        if(year >= order_year){
+            if(month >= order_month){
+                if(day >= order_day){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     comment(index) {
-        if(this.state.orderlist[index].comment === true){
+        if(this.state.orderlist[index].comment === false){
             return (
                 <div>
                     <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target={'#comment'+'_'+index}>
@@ -168,7 +143,7 @@ class Orderlist extends Component{
                                     <label htmlFor="star1">1 star</label>
                                 </fieldset>
                             </div>
-                            <div class="modal-footer">
+                            <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">取消</button>
                                 <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={()=>this.comment_submit(index)}>提交</button>
                             </div>
@@ -178,13 +153,20 @@ class Orderlist extends Component{
                 </div>
             )
         }
+        else {
+            return (
+                <button type="button" className="btn btn-primary">
+                    已评价
+                </button>
+            )
+        }
     }
 
     cancel(index) {
-        if(this.state.orderlist[index].cancel === true){
+        if(this.state.orderlist[index].cancel === false){
             return (
                 <div>
-                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={'#cancel'+'_'+index}>
+                     <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target={'#cancel'+'_'+index}>
                         取消订单
                      </button>
                      <div className="modal fade" id={'cancel'+'_'+index} tabindex="-1" aria-labelledby={"cancelLabel"+'_'+index} aria-hidden="true">
@@ -207,6 +189,13 @@ class Orderlist extends Component{
                 </div>
              )
         }
+        else {
+            return (
+                <button type="button" className="btn btn-primary">
+                    已取消
+                </button>
+            )
+        }
     }
 
     cancel_submit(index) {
@@ -227,21 +216,8 @@ class Orderlist extends Component{
             }
         })
         let orders = this.state.orderlist
-        orders[index].cancel = false
+        orders[index].cancel = true
         this.setState({orderlist:orders})
-    }
-
-    done(index) {
-        if(this.state.orderlist[index].cancel === false && this.state.orderlist[index].comment === false){
-            return (
-                <div>
-                    <button type="button" className="btn btn-primary">
-                        已完成
-                     </button>
-                </div>
-            )
-        
-        }
     }
 
     setStar(index, star) {
@@ -283,7 +259,7 @@ class Orderlist extends Component{
             }
         })
         let orders = this.state.orderlist
-        orders[index].comment = false
+        orders[index].comment = true
         this.setState({orderlist:orders})
     }
 
@@ -294,8 +270,8 @@ class Orderlist extends Component{
             <table className="table table-striped" id='userlist'>
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
                     <th scope="col">订单编号</th>
+                    <th scope="col">身份证号</th>
                     <th scope="col">景区编号</th>
                     <th scope="col">景区名称</th>
                     <th scope="col">下单日期</th>
@@ -306,20 +282,17 @@ class Orderlist extends Component{
                 </thead>
                 <tbody>
                 {orders.map((order,index)=>{
-                    console.log(order)
                             return (
                                 <tr key={index}>
-                                    <td>{index+1}</td>
                                     <td>{order.order_id}</td>
+                                    <td>{order.idnumber}</td>
                                     <td>{order.scenicid}</td>
                                     <td>{order.scenictitle}</td>  
                                     <td>{order.order_date}</td> 
                                     <td>{order.reserve_date}</td>
                                     <td>{"￥" + order.order_price}</td>
                                     <td>
-                                        {this.comment(index)}
-                                        {this.cancel(index)}
-                                        {this.done(index)}
+                                        {this.date_compare(index) ? this.comment(index) : this.cancel(index)}
                                     </td>
                                 </tr>
                             )
