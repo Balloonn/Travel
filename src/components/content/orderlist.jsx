@@ -130,18 +130,23 @@ class Orderlist extends Component{
                             </div>
                             <div className="modal-body">
                                 <textarea  rows={6} onChange={e => {this.setContent(index, e.target.value)}} type="text" className="form-control" />
-                                <fieldset className="rating" onChange={e => {this.setStar(index, e.target.value)}}>
-                                    <input type="radio" id="star5" name="rating" value="5" />
-                                    <label htmlFor="star5">5 stars</label>
-                                    <input type="radio" id="star4" name="rating" value="4" />
-                                    <label htmlFor="star4">4 stars</label>
-                                    <input type="radio" id="star3" name="rating" value="3" />
-                                    <label htmlFor="star3">3 stars</label>
-                                    <input type="radio" id="star2" name="rating" value="2" />
-                                    <label htmlFor="star2">2 stars</label>
-                                    <input type="radio" id="star1" name="rating" value="1" />
-                                    <label htmlFor="star1">1 star</label>
-                                </fieldset>
+                                <div className='stars'>
+                                    <p className='starstitle'>星级评级:</p>
+                                    <div className='starsrating'>
+                                        <fieldset className="rating" onChange={e => {this.setStar(index, e.target.value)}}>
+                                            <input type="radio" id="star5" name="rating" value="5" />
+                                            <label htmlFor="star5">5 stars</label>
+                                            <input type="radio" id="star4" name="rating" value="4" />
+                                            <label htmlFor="star4">4 stars</label>
+                                            <input type="radio" id="star3" name="rating" value="3" />
+                                            <label htmlFor="star3">3 stars</label>
+                                            <input type="radio" id="star2" name="rating" value="2" />
+                                            <label htmlFor="star2">2 stars</label>
+                                            <input type="radio" id="star1" name="rating" value="1" />
+                                            <label htmlFor="star1">1 star</label>
+                                        </fieldset>
+                                    </div>
+                                </div>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">取消</button>
